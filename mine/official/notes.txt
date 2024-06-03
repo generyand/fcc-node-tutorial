@@ -1,0 +1,52 @@
+# Things I need to learn
+1 - destructuring of objects in Javascript. (/)
+2 - how to use async, await and promises. (/)
+3 - parameters of writing and reading files functions (wala ko kasabot sa flag sa 11-fs-sync.js na module).
+4 - What is npx
+
+
+# Things I Need to Take Note so That I Can Understand it.
+## 1 - Globals
+There are global variables that is reserved for certain purposes. Examples is naa sa 2-globals.js na module.
+
+## 2 - Modules
+Modules in Javascript or any programming languages is a file nga naay certain functions nga pwede nimo ma import to other modules/files. Modules are made so that the codebase could be more organized and being able to have reusable codes for efficiency. For reference, check the 3-modules.js until 7-mind-grenade.js.
+
+And also, take note that once you import a module to another module, you invoke the module that you are importing. Hence, it means that whatever function is inside that module, that you imported, can be accessed by a certain module. Additionally, if you invoke a function or call a function inside a module that is supposedly exported, that function that you called will be executed sa modules na gi important nimo. For reference, check 7-mind-grenade.js.
+
+## 3 - Built-in Modules
+Just like any other programming language, there are certain modules nga built-in na sa Node.js. An example is ang 'os', 'path', 'fs', and 'http' modules.
+
+Respectively, the 'os' module is naay functions nga executable nga ang reference niya is for the Operating System (check 8-os-module.js).
+
+Secondly, ang 'path' module, as its name suggests, is for taking care of paths in the File System. Check 9-path-module.js for reference.
+
+Thirdly, the 'fs' module is for file handling, parehas sa Java. The meaning of 'fs' is File System. What you can do with it is handle files such as reading and writing contents. For reference, check 10-fs-sync.js and 11-fs-async.js.
+
+lastly, the 'http' module is for handling the server request and respond. I don't know how to explain this yet cuz ana ang nag explain kay later pa daw mag in depth. So... yeah. Maybe search nalang unsay exact purpose sa 'http' module.
+
+## 4 - Node Package Manager
+npm - is a global command, comes with node.js when installed.
+npm --version
+npm i <packageName> -D or --save-dev - This is for devDependencies in JSON
+npm uninstall <packageName> - uninstalls a module
+npm run <scriptname> - will run whatever custom command you put in the script object in the package.json file.
+
+local dependency - use it only in this particular project
+npm i <packagename>
+
+global dependency - use it in any project
+npm install -g <packageName> - the instructor of the video said that avoid installing dependencies globally as much as possible or just use npx instead. Or... you could just install locally... and ambot libog diri na part.
+
+package.json - manifest file (stores important info about project/package)
+manual approach (create package.json in the root, create properties etc)
+npm init (step by step, press enter to skip)
+npm init -y (everything default)
+
+## 5 - JSON and npm
+dependencies - is the modules that are needed for production
+devDependencies - is the modules that are needed only in development. Example is nodemon. Nodemon is used like a live server. For reference, check nodemon documentation.
+
+You can use the script in the package.json file to run custom command like 'npm run dev'. Whatever you put in the script object in the package.json file will be executed as a custom command. If you want to dive deeply, go to package.json documentation in any browswer.
+
+## 6 - Javascript Asynchrounous: How it Offloads Functions/Methods
