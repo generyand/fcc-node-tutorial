@@ -1,44 +1,42 @@
-const http = require("http");
-const { readFileSync } = require("fs");
+const express = require("express");
+const app = express();
+const { products } = require("./data");
 
-const homePage = readFileSync("./navbar-app/index.html")
-const homeStyles = readFileSync("./navbar-app/styles.css")
-const homeImage = readFileSync("./navbar-app/logo.svg")
-const homeLogic = readFileSync("./navbar-app/browser-app.js")
-
-const server = http.createServer((req, res) => {
-  const url = req.url;
-  console.log(url);
-
-  /* HOME */
-  if (url === "/") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write(homePage);
-  } 
-  
-  /* STYLE */
-  else if (url === "/styles.css") {
-    res.writeHead(200, { "content-type": "text/css" });
-    res.write(homeStyles);
-  } 
-
-  /* LOGO */
-  else if (url === "/logo.svg") {
-    res.writeHead(200, { "content-type": "image/svg+xml" });
-    res.write(homeImage);
-  } 
-
-  else if (url === "/browser-app.js") {
-    res.writeHead(200, { "content-type": "text/javascript" });
-    res.write(homeLogic);
-  } 
-  
-  /* 404 */
-  else {
-    res.writeHead(404, { "content-type": "text/html" });
-    res.write(`<h1>Error 404: Page Not Found. :(</h1>`);
-  }
-  res.end();
+app.get("/", (req, res) => {
+  res.send(
+    '<h1>Hello from Home Page!</h1><a href="/api/products">Products</a>'
+  );
 });
 
-server.listen(5000);
+app.get("/api/products", (req, res) => {
+  const newProducts = products.map((product) => {
+    const { id, name, image } = product;
+    return { id, name, image };
+  });
+  res.json(newProducts);
+});
+
+app.get("/api/products/:productID", (req, res) => {
+  // console.log(req);
+  // console.log(req.params);
+  const { productID } = req.params;
+  const singleProduct = products.find(
+    (product) => product.id === Number(productID)
+  );
+
+  if (!singleProduct) {
+    return res.status(404).send("Product Does Not Exist");
+  }
+  return res.json(singleProduct);
+});
+
+app.get("/api/products/:productID/reviews/:reviewID", (req, res) => {
+  console.log(req.params);
+  res.send(
+    "Hello, World! This is sent as a reviews. hehe just pretend that this is a review"
+  );
+});
+
+app.listen(5000, () => {
+  console.log("Server is listening on port 5000");
+});
